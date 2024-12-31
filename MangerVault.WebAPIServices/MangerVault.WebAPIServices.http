@@ -1,0 +1,6 @@
+@MangerVault.WebAPIServices_HostAddress = http://localhost:5005
+
+GET {{MangerVault.WebAPIServices_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

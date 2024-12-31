@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangerVault.WebAPIServices", "MangerVault.WebAPIServices\MangerVault.WebAPIServices.csproj", "{7B972DD2-EC80-4E51-ABC9-F1E7AA15EB95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B972DD2-EC80-4E51-ABC9-F1E7AA15EB95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B972DD2-EC80-4E51-ABC9-F1E7AA15EB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B972DD2-EC80-4E51-ABC9-F1E7AA15EB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B972DD2-EC80-4E51-ABC9-F1E7AA15EB95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14530DBF-1213-4C1D-ACBA-0562C5149016}
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,5 @@
 
+using ManageUsers;
 using ManageUsers.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,10 @@ namespace MangerVault.WebAPIServices
             string cosmosConnectionString = builder.Configuration.GetValue<string>("CosmosDbConnectionString");
             string databaseName = builder.Configuration.GetValue<string>("CosmosDbDatabaseName");
 
+            cosmosConnectionString = Environment.GetEnvironmentVariable("CosmosDbConnectionString").ToString();
+            databaseName = Environment.GetEnvironmentVariable("CosmosDbDatabaseName").ToString();
+
+
             // Add DbContext with Cosmos DB as the provider
             builder.Services.AddDbContextFactory<AccountContext>(options =>
                 options.UseCosmos(cosmosConnectionString, databaseName)
@@ -52,6 +57,8 @@ namespace MangerVault.WebAPIServices
 
             app.UseAuthorization();
 
+            // Add the custom middleware to the pipeline
+            app.UseMiddleware<MiddlewareUtility>();
 
             app.MapControllers();
 

@@ -1,36 +1,48 @@
-﻿using Newtonsoft.Json;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ManageUsers.Models
 {
+    //[Collection("account")]
     public class Account
     {
-        [Key]
-        [JsonProperty("id")]
+        //[BsonId]
+        //public ObjectId _id { get; set; }
+
+        //[Key]
+        [BsonId]
+        //[JsonProperty("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string? id { get; set; }
 
-        [JsonProperty("accountName")]
+        [BsonElement("accountName")]
+        //[JsonProperty("accountName")]
         [Required(ErrorMessage = "Name is required")]
         [StringLength(30, MinimumLength = 6)]
         //[RegularExpression(@"^[A-Z]+[a-zA-Z]*$", ErrorMessage = "Only letters are allowed.")]
         //[RegularExpression(@"^[a-zA-Z0-9!@#$%^&*(),.?'\\s\""]*$", ErrorMessage = "Only letters, numbers, and symbols are allowed.")]
-        public string? accountName { get; set; }
+        public string? AccountName { get; set; }
 
-        [JsonProperty("type")]
+        [BsonElement("type")]
+        //[JsonProperty("type")]
         [Required(ErrorMessage = "Type is required")]
-        public string? accountType { get; set; }
+        public string? AccountType { get; set; }
 
-        [JsonProperty("link")]
+        [BsonElement("link")]
+        //[JsonProperty("link")]
         [Required(ErrorMessage = "Link is required")]
         [Url]
         public string? link { get; set; }
 
-        [JsonProperty("customDatas")]
+        [BsonElement("customDatas")]
+        //[JsonProperty("customDatas")]
         public IEnumerable<Customdata>? customDatas { get; set; }
 
-        [JsonProperty("credentials")]
+        [BsonElement("credentials")]
+        //[JsonProperty("credentials")]
         public IEnumerable<Credential>? credentials { get; set; }
     }
 
@@ -40,11 +52,13 @@ namespace ManageUsers.Models
         //public string? Id { get; set; }
 
         //[Display(Name = "key")]
-        [JsonProperty("key")]
+        [BsonElement("key")]
+        //[JsonProperty("key")]
         public string? key { get; set; }
 
         //[Display(Name = "value")]
-        [JsonProperty("value")]
+        [BsonElement("value")]
+        //[JsonProperty("value")]
         public string? value { get; set; }
     }
 
@@ -54,11 +68,13 @@ namespace ManageUsers.Models
         //public string? Id { get; set; }
 
         //[Display(Name = "username")]
-        [JsonProperty("username")]
+        [BsonElement("username")]
+        //[JsonProperty("username")]
         public string? username { get; set; }
 
         //[Display(Name = "password")]
-        [JsonProperty("password")]
+        [BsonElement("password")]
+        //[JsonProperty("password")]
         public string? password { get; set; }
     }
 

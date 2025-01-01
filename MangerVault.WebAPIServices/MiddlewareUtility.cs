@@ -22,7 +22,7 @@ namespace ManageUsers
             // Log the IP address
             _logger.LogInformation($"Request from IP: {ipAddress}");
 
-            _logger.LogInformation($"Coneection String: {Environment.GetEnvironmentVariable("CosmosDbConnectionString").ToString()}");
+            _logger.LogInformation($"Coneection String: {Environment.GetEnvironmentVariable("MONGO_PUBLIC_URL")}");
 
             await _next(httpContext);
         }

@@ -1,17 +1,27 @@
 ﻿using ManageUsers.Models;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.EntityFrameworkCore.Extensions;
 //using System.Data.Entity;
 
 namespace ManageUsers.Data
 {
     public class AccountContext : DbContext
     {
-        public AccountContext(DbContextOptions<AccountContext> options)
-       : base(options)
-        {
-        }
+        public AccountContext(DbContextOptions options) : base(options){}
 
         public DbSet<Account> AccountItems { get; set; }
+
+        //public static AccountContext Create(IMongoDatabase database) =>
+        //    new(new DbContextOptionsBuilder<AccountContext>()
+        //   .UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName)
+        //   .Options);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            var user = "sanjay";
+            modelBuilder.Entity<Account>().ToCollection($"accounts.{user}");
+        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -29,21 +39,21 @@ namespace ManageUsers.Data
         //        .HasPartitionKey(e => e.Id);
         //}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Account>()
-                .HasNoDiscriminator()
-                .ToContainer("Accounts") // Specifies the Cosmos DB container name
-                .HasPartitionKey(a => a.accountType); // Use "Type" as the partition key
+        //    modelBuilder.Entity<Account>()
+        //        .HasNoDiscriminator()
+        //        .ToContainer("Accounts") // Specifies the Cosmos DB container name
+        //        .HasPartitionKey(a => a.accountType); // Use "Type" as the partition key
 
-            //modelBuilder.Entity<Account>()
-            //.Property(a => a.accountType)
-            //.HasConversion(
-            //    v => v.ToString(),  // Convert enum to string
-            //    v => (AccountType)Enum.Parse(typeof(AccountType), v)  // Convert string back to enum
-            //);
-        }
+        //    //modelBuilder.Entity<Account>()
+        //    //.Property(a => a.accountType)
+        //    //.HasConversion(
+        //    //    v => v.ToString(),  // Convert enum to string
+        //    //    v => (AccountType)Enum.Parse(typeof(AccountType), v)  // Convert string back to enum
+        //    //);
+        //}
     }
 }

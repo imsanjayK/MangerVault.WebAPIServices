@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ManageUsers.Data;
 using ManageUsers.Models;
+using MongoDB.Driver;
 
 namespace ManageUsers.Controllers
 {
@@ -15,7 +16,15 @@ namespace ManageUsers.Controllers
         public AccountController(AccountContext context)
         {
             _context = context;
+           
         }
+        //// GET: api/accounts
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
+        //{
+        //    var accounts = await _context.Accounts.Find(account => true).ToListAsync();
+        //    return Ok(accounts);
+        //}
 
         // GET: api/Accounts
         [HttpGet]

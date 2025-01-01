@@ -1,7 +1,5 @@
 
 using ManageUsers;
-using ManageUsers.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace MangerVault.WebAPIServices
 {
@@ -22,22 +20,41 @@ namespace MangerVault.WebAPIServices
                 });
             });
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
+            
 
             // Get the Cosmos DB connection string from configuration
-            string cosmosConnectionString = builder.Configuration.GetValue<string>("CosmosDbConnectionString");
-            string databaseName = builder.Configuration.GetValue<string>("CosmosDbDatabaseName");
+            //string cosmosConnectionString = builder.Configuration.GetValue<string>("CosmosDbConnectionString");
+            //string databaseName = builder.Configuration.GetValue<string>("CosmosDbDatabaseName");
 
-            cosmosConnectionString = Environment.GetEnvironmentVariable("CosmosDbConnectionString").ToString();
-            databaseName = Environment.GetEnvironmentVariable("CosmosDbDatabaseName").ToString();
+            //cosmosConnectionString = Environment.GetEnvironmentVariable("CosmosDbConnectionString").ToString();
+            //databaseName = Environment.GetEnvironmentVariable("CosmosDbDatabaseName").ToString();
 
 
             // Add DbContext with Cosmos DB as the provider
-            builder.Services.AddDbContextFactory<AccountContext>(options =>
-                options.UseCosmos(cosmosConnectionString, databaseName)
-                );
+            //builder.Services.AddDbContextFactory<AccountContext>(options =>
+            //    options.UseCosmos(cosmosConnectionString, databaseName)
+            //);
+            var connectionString = Environment.GetEnvironmentVariable("MONGO_PUBLIC_URL");
+            var databaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME");
+            if (connectionString is null)
+            {
+                Console.WriteLine("You must set your 'MONGODB_URI' environment variable. To learn how to set it, see https://www.mongodb.com/docs/drivers/csharp/current/quick-start/#set-your-connection-string");
+                Environment.Exit(0);
+            }
+            // Register MongoDbContext as Singleton in DI container
+            //builder.Services.AddSingleton<MongoDbContext>(serviceProvider =>
+            //    new MongoDbContext(connectionString, databaseName));
+
+            //builder.Services.AddDbContextFactory<AccountContext>(options =>
+            //    options.UseMongoDB(connectionString, databaseName)
+            //);
+            
+
+
+            // Add services to the container.
+            builder.Services.AddControllers();
+
+            builder.Services.AddMongoDbContext(connectionString, databaseName);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

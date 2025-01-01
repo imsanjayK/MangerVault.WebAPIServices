@@ -2,8 +2,8 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-ENV MONGO_PUBLIC_URL=mongodb://mongo:gxPTHLykIzGUYuyhSTEQmDsBynuJNJmF@autorack.proxy.rlwy.net:57319
-ENV MONGO_DATABASE_NAME=vault
+# ENV MONGO_PUBLIC_URL=mongodb://mongo:gxPTHLykIzGUYuyhSTEQmDsBynuJNJmF@autorack.proxy.rlwy.net:57319
+# ENV MONGO_DATABASE_NAME=vault
 USER app
 WORKDIR /app
 EXPOSE 8080

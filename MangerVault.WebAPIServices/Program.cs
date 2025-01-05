@@ -1,5 +1,7 @@
 
 using ManageUsers;
+using ManageUsers.Data;
+using MangerVault.WebAPIServices.Models;
 
 namespace MangerVault.WebAPIServices
 {

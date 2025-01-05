@@ -11,7 +11,8 @@ namespace MangerVault.WebAPIServices
         {
             var client = new MongoClient(connectionString);
             services.AddDbContext<AccountContext>(opt => opt.UseMongoDB(client, databaseName));
-           
+            services.AddDbContext<AccountOwnerContext>(opt => opt.UseMongoDB(client, databaseName));
+
             return services;
         }
     }

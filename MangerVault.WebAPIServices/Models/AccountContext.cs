@@ -7,7 +7,7 @@ namespace ManageUsers.Data
 {
     public class AccountContext : DbContext
     {
-        public AccountContext(DbContextOptions options) : base(options){}
+        public AccountContext(DbContextOptions<AccountContext> options) : base(options){}
 
         public DbSet<Account> AccountItems { get; set; }
 

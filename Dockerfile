@@ -2,6 +2,10 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
+ENV MONGO_PUBLIC_URL=mongodb+srv://imsanjayk95:P5fq3GCdRcUUfVxz@cluster0.enpdz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+ENV MONGO_DATABASE_NAME=vault
+ENV SUBSCRIPTION_KEY=bb5f9256-1834-4a26-b65c-e48fcaccec32
+
 EXPOSE 8080
 EXPOSE 8081
 

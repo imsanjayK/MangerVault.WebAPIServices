@@ -1,8 +1,4 @@
-﻿using System.Configuration;
-using System.Net;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace ManageUsers
+﻿namespace MangerVault.WebAPIServices.Middleware
 {
     public class MiddlewareUtility
     {
@@ -22,7 +18,7 @@ namespace ManageUsers
             // Log the IP address
             _logger.LogInformation($"Request from IP: {ipAddress}");
 
-            _logger.LogInformation($"Coneection String: {Environment.GetEnvironmentVariable("MONGO_PUBLIC_URL")}");
+            //_logger.LogInformation($"Coneection String: {Environment.GetEnvironmentVariable("MONGO_PUBLIC_URL")}");
 
             await _next(httpContext);
         }

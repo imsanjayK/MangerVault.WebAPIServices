@@ -1,4 +1,4 @@
-namespace MangerVault.WebAPIServices
+namespace MangerVault.WebAPIServices.Models
 {
     public class WeatherForecast
     {

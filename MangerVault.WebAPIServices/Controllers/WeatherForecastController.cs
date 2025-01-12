@@ -1,3 +1,4 @@
+using MangerVault.WebAPIServices.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangerVault.WebAPIServices.Controllers

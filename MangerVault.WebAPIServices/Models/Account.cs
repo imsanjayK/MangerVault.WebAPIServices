@@ -64,18 +64,14 @@ namespace ManageUsers.Models
 
     public class Credential
     {
-        //[Display(Name = "id")]
-        //public string? Id { get; set; }
-
-        //[Display(Name = "username")]
         [BsonElement("username")]
-        //[JsonProperty("username")]
-        public string? username { get; set; }
+        public string? Username { get; set; }
 
-        //[Display(Name = "password")]
         [BsonElement("password")]
-        //[JsonProperty("password")]
-        public string? password { get; set; }
+        public string? Password { get; set; }
+
+        [BsonElement("passphrase")]
+        public string? Passphrase { get; set; }
     }
 
     public enum AccountType

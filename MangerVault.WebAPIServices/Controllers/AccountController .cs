@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ManageUsers.Data;
 using ManageUsers.Models;
 using MongoDB.Driver;
+using MangerVault.WebAPIServices.UtilityHelper;
 
 namespace ManageUsers.Controllers
 {
@@ -18,13 +19,6 @@ namespace ManageUsers.Controllers
             _context = context;
            
         }
-        //// GET: api/accounts
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
-        //{
-        //    var accounts = await _context.Accounts.Find(account => true).ToListAsync();
-        //    return Ok(accounts);
-        //}
 
         // GET: api/Accounts
         [HttpGet]
@@ -34,15 +28,24 @@ namespace ManageUsers.Controllers
         }
 
         // POST: api/Accounts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Account>> PostAccount(Account account)
         {
-           // account.Id = Guid.NewGuid().ToString();
-
-            //await _context.Database.EnsureDeletedAsync();
             await _context.Database.EnsureCreatedAsync();
 
+            var credential = new List<Credential>();
+            foreach (var cred in account.credentials)
+            {
+                var passphrase = PasswordHelper.GenerateRandomString();
+                credential.Add(new Credential
+                {
+                    Username = cred.Username,
+                    Password = PasswordHelper.EncryptPassword(cred.Password, passphrase),
+                    Passphrase = passphrase
+                });
+            }
+
+            account.credentials = credential;
             _context.AccountItems.Add(account);
             await _context.SaveChangesAsync();
 
@@ -60,19 +63,44 @@ namespace ManageUsers.Controllers
                 return NotFound();
             }
 
+            var credential = new List<Credential>();
+            foreach (var cred in account.credentials)
+            {
+                credential.Add(new Credential
+                {
+                    Username = cred.Username,
+                    Password = PasswordHelper.DecryptPassword(cred.Password, cred.Passphrase)
+                });
+            }
+
+            account.credentials = credential;
             return account;
         }
 
         // PUT: api/Accounts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAccount(string id, Account account)
         {
-            //if (id != Convert.ToInt32(account.id))
-            //{
-            //    return BadRequest();
-            //}
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
             account.id = id;
+
+            var credential = new List<Credential>();
+            foreach (var cred in account.credentials)
+            {
+                var passphrase = PasswordHelper.GenerateRandomString();
+                credential.Add(new Credential
+                {
+                    Username = cred.Username,
+                    Password = PasswordHelper.EncryptPassword(cred.Password, passphrase),
+                    Passphrase = passphrase
+                });
+            }
+
+            account.credentials = credential;
 
             // Attach the entity to the context
             _context.AccountItems.Attach(account);

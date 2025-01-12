@@ -13,6 +13,18 @@ namespace MangerVault.WebAPIServices.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AccountOwner>().ToCollection($"accounts.owner");
+
+            modelBuilder.Entity<AccountOwner>()
+                .HasKey(u => u.Id); // Primary key configuration
+
+            modelBuilder.Entity<AccountOwner>()
+                .Property(u => u.Contact)
+                .IsRequired()
+                .HasMaxLength(10);
+
+            modelBuilder.Entity<AccountOwner>()
+                .HasIndex(u => u.Credential.Username)
+                .IsUnique();
         }
     }
 }

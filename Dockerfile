@@ -3,6 +3,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 
+# Switch to root to install dependencies
+USER root
 # Install necessary packages for SSL/TLS
 RUN apt-get update && apt-get install -y openssl ca-certificates
 

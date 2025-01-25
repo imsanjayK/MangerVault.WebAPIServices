@@ -2,6 +2,11 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
+
+# Install necessary packages for SSL/TLS
+RUN apt-get update && apt-get install -y openssl ca-certificates
+
+
 ENV MONGO_PUBLIC_URL=mongodb+srv://imsanjayk95:P5fq3GCdRcUUfVxz@cluster0.enpdz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 ENV MONGO_DATABASE_NAME=vault
 ENV SUBSCRIPTION_KEY=bb5f9256-1834-4a26-b65c-e48fcaccec32
@@ -10,7 +15,7 @@ EXPOSE 8080
 EXPOSE 8081
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["MangerVault.WebAPIServices/MangerVault.WebAPIServices.csproj", "MangerVault.WebAPIServices/"]
